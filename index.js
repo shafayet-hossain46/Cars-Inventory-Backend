@@ -72,6 +72,15 @@ async function run() {
     });
 
 
+    // Getting My Items
+    app.get("/myItems", async (req, res) => {
+      const query = req.query.email;
+      const result = await carsCollection.find({email: query}).toArray();
+      console.log(result);
+      res.send(result);
+    })
+
+
 
 
   } finally {
@@ -82,4 +91,4 @@ run().catch(console.dir());
 
 app.listen(port, () => {
   console.log("Listening to port ", port);
-});
+}); 
