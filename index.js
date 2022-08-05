@@ -19,6 +19,7 @@ async function run() {
   try {
     await client.connect();
     const carsCollection = client.db("carsCollection").collection("carsItems");
+    const carsCollectionReviews = client.db("carsCollectionReviews").collection("reviews");
 
     // Get Inventory Items
     app.get("/inventory", async (req, res) => {
@@ -77,6 +78,21 @@ async function run() {
       const query = req.query.email;
       const result = await carsCollection.find({email: query}).toArray();
       console.log(result);
+      res.send(result);
+    })
+
+
+    // Reviews
+    app.post("/reviews", async (req, res)=> {
+      const body = req.body;
+      const result = await carsCollectionReviews.insertOne(body);
+      res.send(result)
+    })
+
+
+    // Get Reviews
+    app.get("/reviews", async (req, res) =>{
+      const result = await carsCollectionReviews.find({}).toArray();
       res.send(result);
     })
 
