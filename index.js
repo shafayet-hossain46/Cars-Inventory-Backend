@@ -77,7 +77,6 @@ async function run() {
     app.get("/myItems", async (req, res) => {
       const query = req.query.email;
       const result = await carsCollection.find({email: query}).toArray();
-      console.log(result);
       res.send(result);
     })
 
